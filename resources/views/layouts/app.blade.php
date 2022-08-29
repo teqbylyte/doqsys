@@ -10,6 +10,10 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        <!-- Icons -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet">
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -29,5 +33,7 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <script src="https://unpkg.com/flowbite@1.5.2/dist/flowbite.js"></script>
     </body>
 </html>
