@@ -12,7 +12,7 @@ class HomeController extends Controller
     {
         $latest = Document::query()->latest()->limit(8)->get();
         $folders = Folder::query()->whereNull('folder_id')->get();
-        $documents = Document::query()->whereNull('folder_id')->get();
+        $documents = Document::query()->latest()->whereNull('folder_id')->get();
         $breadcrumbs = $this->getBreadcrumbs(home_link: false);
 
         return view('pages.home', compact('latest', 'folders', 'documents', 'breadcrumbs'));

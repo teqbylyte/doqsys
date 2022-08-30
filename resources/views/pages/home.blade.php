@@ -12,9 +12,10 @@
     <!-- Page Body--->
 
 
-    <!-- Modal Buttons--->
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            <!-- Modal Buttons--->
             <div class="flex justify-end  mb-5">
                 <x-button-light type="button" class="mx-2" data-modal-toggle="file-modal">
                     <x-icon class="text-cyan-600 mr-2">upload_file</x-icon>
@@ -36,6 +37,55 @@
             </div>
             <!-- Greeting End--->
 
+            <!-- Latest-->
+            @if($latest->count() > 0)
+                <div class="mt-10 shadow-sm sm:rounded-lg">
+                    <h3 class="font-bold text-md text-cyan-600 pl-3 pb-3">
+                        Recently Added
+                        <span class="text-sm text-slate-500">(Click on images to view)</span>
+                    </h3>
+                    <div class="pb-6 pt-1 max-h-80 overflow-y-scroll grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+                        @foreach($latest as $doc)
+                            <div class="bg-white p-4 shadow-sm rounded-sm flex justify-between">
+                                <div class="flex items-center @if($doc->type == 'image') cursor-pointer hover:opacity-80 @endif">
+                                    <x-icon class="text-cyan-600">{{ getFileIcon($doc->type) }}</x-icon>
+                                    <div class="truncate pl-2">
+                                        {{ $doc->file_name }}
+                                    </div>
+                                </div>
+                                <x-dropdown align="right" width="36">
+                                    <x-slot:trigger>
+                                        <span class="material-icons text-xs text-dark hover:text-dark cursor-pointer">more_vert</span>
+                                    </x-slot:trigger>
+
+                                    <x-slot:content>
+
+                                        <!-- Modal dropdown button -->
+                                        <x-dropdown-link class="hover:text-green-400 text-green-600"
+                                                         href="{{ route('documents.download', $doc->uuid) }}"
+                                        >
+                                            Download
+                                        </x-dropdown-link>
+                                        @can('modify document')
+                                            <form method="POST" action="{{ route('documents.delete', $doc->uuid) }}">
+                                                @method('delete')
+                                                @csrf
+                                                <x-dropdown-link class="hover:text-red-400 text-red-600"
+                                                                 onclick="event.preventDefault();
+                                                    this.closest('form').submit();"
+                                                >
+                                                    Delete
+                                                </x-dropdown-link>
+                                            </form>
+                                        @endcan
+                                    </x-slot:content>
+                                </x-dropdown>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
             <!-- Folders-->
             @if($folders->count() > 0)
                 <div class="mt-10 shadow-sm sm:rounded-lg">
@@ -44,7 +94,7 @@
                 </div>
             @endif
 
-        <!-- Folders-->
+        <!-- Documents -->
             @if($documents->count() > 0)
                 <div class="mt-10 shadow-sm sm:rounded-lg">
                     <h3 class="font-bold text-md text-cyan-600 pl-3 pb-3">Documents</h3>

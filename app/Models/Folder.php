@@ -36,7 +36,7 @@ class Folder extends Model
 
     public function subFolders(): HasMany
     {
-        return $this->hasMany(self::class);
+        return $this->hasMany(self::class)->latest();
     }
 
     public function superFolder(): BelongsTo
@@ -46,6 +46,6 @@ class Folder extends Model
 
     public function documents(): HasMany
     {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class)->latest();
     }
 }
