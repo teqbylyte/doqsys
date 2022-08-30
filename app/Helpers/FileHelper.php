@@ -53,6 +53,18 @@ class FileHelper
     }
 
     /**
+     * Delete an uploaded file from the storage if it is found.
+     *
+     * @param string|null $folder should be the path to that file in the public disk
+     */
+    public static function deleteFolder(string|null $folder = null): void
+    {
+        if (!is_null($folder)) {
+            Storage::disk('public')->deleteDirectory('/documents/' . $folder);
+        }
+    }
+
+    /**
      *
      * @param string $extension the client original extension from the file
      * @return string either of the DOC_TYPE values in General.php

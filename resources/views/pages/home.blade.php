@@ -13,7 +13,7 @@
     <!-- Page Body--->
 
 
-    <div class="py-12 mx-3 sm:mx-0">
+    <div class="pb-12 pt-2 mx-3 sm:mx-0">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <!-- Modal Buttons--->
@@ -33,7 +33,7 @@
             <div class="overflow-hidden">
                 <p><strong>Hey there!</strong></p>
                 @if($documents->count() < 1 && $folders->count() < 1)
-                    <p class="pt-2 sm:pt-5">Welcome to the home your documents manager, proceed to upload documents, create folders to group your documents and easily access/manage them for your organization.</p>
+                    <p class="pt-2 sm:pt-5">This is your <span class="font-semibold">Organisation's Documents Management System</span>.  You may proceed to upload documents, create folders to group your documents, grant your staff access to the system to make uploads also, and easily access/manage them for your organization.</p>
                 @endif
             </div>
             <!-- Greeting End--->

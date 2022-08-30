@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FileHelper;
 use App\Helpers\General;
 use App\Http\Requests\FolderRequest;
 use App\Models\Folder;
@@ -33,7 +34,7 @@ class FolderController extends Controller
 
             Folder::query()->create($data);
 
-            return back()->with('success', 'Folder created!');
+            return back()->with('success', 'Folder created.');
         } catch (\Exception $exception) {
             return back()->with($this->getExceptionMsg($exception));
         }
@@ -49,7 +50,7 @@ class FolderController extends Controller
             $folder->name = $name;
             $folder->save();
 
-            return back()->with('success', 'Folder name updated.');
+            return back()->with('success', 'Folder renamed.');
         } catch (\Exception $exception) {
             return back()->with($this->getExceptionMsg($exception));
         }
@@ -62,9 +63,11 @@ class FolderController extends Controller
     {
         $folder = Folder::slug($slug)->with(['subFolders', 'documents'])->first();
 
+        FileHelper::deleteFolder($folder->slug);
+
         $folder->deleteOrFail();
 
-        return back()->with('success', 'Deleted!');
+        return back()->with('success', 'Folder deleted.');
     }
 
     /**

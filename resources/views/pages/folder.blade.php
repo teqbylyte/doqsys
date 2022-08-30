@@ -13,7 +13,7 @@
     <x-breadcrumbs :breadcrumbs="$breadcrumbs"/>
 
     <!-- Modal Buttons--->
-    <div class="py-12">
+    <div class="pb-12 pt-2 mx-3 sm:mx-0">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end  mb-5">
                 <x-button-light type="button" class="mx-2" data-modal-toggle="file-modal">

@@ -24,7 +24,7 @@ class DocumentController extends Controller
 
             Document::query()->create($document);
 
-            return back()->with('success', 'Document Uploaded!');
+            return back()->with('success', 'Document Uploaded.');
         }
         catch (\Exception $exception) {
             return back()->with($this->getExceptionMsg($exception));
@@ -39,7 +39,7 @@ class DocumentController extends Controller
             $doc->name = General::generateName(model: new Document(), column: 'name', value: $request->name, super_folder: $folder);
             $doc->save();
 
-            return back()->with('success', 'Document renamed!');
+            return back()->with('success', 'Document renamed.');
         }
         catch (\Exception $exception) {
             return back()->with($this->getExceptionMsg($exception));
@@ -52,7 +52,7 @@ class DocumentController extends Controller
             $doc->is_visible = !$doc->is_visible;
             $doc->save();
 
-            return back()->with('success', 'Document updated!');
+            return back()->with('success', 'Document updated.');
         }
         catch (\Exception $exception) {
             return back()->with($this->getExceptionMsg($exception));
@@ -72,7 +72,7 @@ class DocumentController extends Controller
             }
         }
 
-        return back()->with('message', 'File not found');
+        return back()->with('message', 'File not found.');
     }
 
     /**
@@ -81,6 +81,7 @@ class DocumentController extends Controller
     public function delete(Document $doc)
     {
         FileHelper::deleteUploadedFile($doc->path);
+
         $doc->deleteOrFail();
 
         return back()->with('success', 'Document deleted!');
