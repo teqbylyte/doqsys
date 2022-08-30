@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->unsignedInteger('folder_id')->nullable();
             $table->string('name');
             $table->string('extension');
