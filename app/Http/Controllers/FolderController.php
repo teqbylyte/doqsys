@@ -26,4 +26,17 @@ class FolderController extends Controller
             return back()->with($this->getExceptionMsg($exception));
         }
     }
+
+    /**
+     * @throws \Throwable
+     */
+    public function delete(string $slug)
+    {
+        $folder = Folder::slug($slug)->with(['subFolders', 'documents'])->first();
+
+        $folder->deleteOrFail();
+
+        return back()->with('success', 'Deleted!');
+    }
+
 }

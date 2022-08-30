@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{slug}', 'show')->name('show');
         Route::post('/{slug}/update', 'update')->name('update');
-        Route::delete('/{slug}/delete', 'delete')->name('delete')->middleware('can:delete folder');
+        Route::delete('/{slug}/delete', 'delete')->name('delete');
     });
 
 });

@@ -22,11 +22,16 @@
                                 >
                                     Rename
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('folders.delete', [$folder->slug])" method="post" as="button"
-                                                 class="hover:text-red-400 text-red-600"
-                                >
-                                    Delete
-                                </x-dropdown-link>
+                                <form method="POST" action="{{ route('folders.delete', [$folder->slug]) }}">
+                                    @method('delete')
+                                    @csrf
+                                    <x-dropdown-link class="hover:text-red-400 text-red-600"
+                                                     onclick="event.preventDefault();
+                                                this.closest('form').submit();"
+                                    >
+                                        Delete
+                                    </x-dropdown-link>
+                                </form>
                             </x-slot:content>
                         </x-dropdown>
                     </div>
