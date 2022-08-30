@@ -21,6 +21,22 @@
             <x-input-error :inputName="$error = 'name'" />
         </div>
     </x-modal-form>
+
+    @if($folders->count())
+        @foreach($folders as $folder)
+            <x-modal-form modal-id="rename-folder-{{$folder->slug}}" :route="route('folders.update', $folder->slug)">
+                <x-slot:heading>Rename Folder</x-slot:heading>
+                <div class="flex flex-col mb-5">
+                    <x-label for="name" class="pb-1">Name</x-label>
+                    <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400"
+                             name="name" value="{{ old('name') ?? $folder->name }}" autofocus required
+                    />
+                    <x-input-error :inputName="$error = 'name'" />
+                    <input type="hidden" name="super_folder" value="{{ $folder->super_folder?->slug }}">
+                </div>
+            </x-modal-form>
+        @endforeach
+    @endif
     <!-- Page Modals End--->
 
     <!-- Page Body--->

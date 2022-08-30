@@ -17,11 +17,13 @@
                             </x-slot:trigger>
 
                             <x-slot:content>
-                                <x-dropdown-link method="post" as="button"
-                                                 class="hover:text-blue-400 text-blue-600"
+
+                                <!-- Modal dropdown button -->
+                                <x-dropdown-button class="hover:text-blue-400 text-blue-600"
+                                                 data-modal-toggle="rename-folder-{{$folder->slug}}"
                                 >
                                     Rename
-                                </x-dropdown-link>
+                                </x-dropdown-button>
                                 <form method="POST" action="{{ route('folders.delete', [$folder->slug]) }}">
                                     @method('delete')
                                     @csrf

@@ -27,6 +27,22 @@ class FolderController extends Controller
         }
     }
 
+    public function update(FolderRequest $request, string $slug)
+    {
+        try {
+            $folder = Folder::slug($slug)->firstOrFail();
+
+            $name = General::generateName(model: new Folder(), column: 'name', value: $request->name, super_folder: $folder->super_folder?->id);
+
+            $folder->name = $name;
+            $folder->save();
+
+            return back()->with('success', 'Folder name updated.');
+        } catch (\Exception $exception) {
+            return back()->with($this->getExceptionMsg($exception));
+        }
+    }
+
     /**
      * @throws \Throwable
      */
