@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\FileHelper;
+use App\Helpers\General;
 use App\Http\Requests\DocRequest;
 use App\Models\Document;
 use App\Models\Folder;
@@ -30,6 +31,21 @@ class DocumentController extends Controller
         }
     }
 
+    public function update(DocRequest $request, Document $doc)
+    {
+        try {
+            $folder = Folder::slug($request->folder)->first()?->id;
+
+            $doc->name = General::generateName(model: new Document(), column: 'name', value: $request->name, super_folder: $folder);
+            $doc->save();
+
+            return back()->with('success', 'Document renamed!');
+        }
+        catch (\Exception $exception) {
+            return back()->with($this->getExceptionMsg($exception));
+        }
+    }
+
     /**
      * Download resource
      * @param Document $doc
@@ -44,5 +60,16 @@ class DocumentController extends Controller
         }
 
         return back()->with('message', 'File not found');
+    }
+
+    /**
+     * @throws \Throwable
+     */
+    public function delete(Document $doc)
+    {
+        FileHelper::deleteUploadedFile($doc->path);
+        $doc->deleteOrFail();
+
+        return back()->with('success', 'Document deleted!');
     }
 }

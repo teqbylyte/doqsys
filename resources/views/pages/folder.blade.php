@@ -32,10 +32,13 @@
                 <x-folder-list :folders="$folder->subFolders" />
             </div>
 
+            @php
+                $docs = $folder->documents
+            @endphp
             <!-- Documents-->
             <div class="mt-10 shadow-sm sm:rounded-lg">
                 <h3 class="font-bold text-md text-cyan-600 pl-3 pb-3">Folders</h3>
-                <x-doc-list :docs="$folder->documents" />
+                <x-doc-list :docs="$docs" />
             </div>
         </div>
     </div>
@@ -82,8 +85,8 @@
                 @endforeach
             @endif
 
-            @if($folder->documents->count() > 0)
-                @foreach($folder->documents as $document)
+            @if(!is_null($docs))
+                @foreach($docs as $document)
                     <x-modal-form modal-id="rename-doc-{{$document->uuid}}" :route="route('documents.update', $document->uuid)">
                         <x-slot:heading>Rename Folder</x-slot:heading>
                         <div class="flex flex-col mb-5">

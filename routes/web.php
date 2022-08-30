@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{doc}/edit', 'edit')->name('edit');
         Route::post('/{doc}/update', 'update')->name('update');
-        Route::delete('/{doc}/delete', 'delete')->name('delete')->middleware('can:delete doc,delete folder');
+        Route::delete('/{doc}/delete', 'delete')->name('delete');
         Route::get('/{doc}/download', 'download')->name('download');
     });
 
