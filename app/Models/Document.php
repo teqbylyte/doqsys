@@ -14,9 +14,9 @@ class Document extends Model
 
     protected $guarded = ['id'];
 
-    protected $appends = [
-        'file_name'
-    ];
+    protected $appends = ['file_name'];
+
+    protected $casts = ['is_visible' => 'boolean'];
 
     protected $with = ['folder'];
 

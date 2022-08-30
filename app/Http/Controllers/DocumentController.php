@@ -46,6 +46,19 @@ class DocumentController extends Controller
         }
     }
 
+    public function setVisibility(Document $doc)
+    {
+        try {
+            $doc->is_visible = !$doc->is_visible;
+            $doc->save();
+
+            return back()->with('success', 'Document updated!');
+        }
+        catch (\Exception $exception) {
+            return back()->with($this->getExceptionMsg($exception));
+        }
+    }
+
     /**
      * Download resource
      * @param Document $doc

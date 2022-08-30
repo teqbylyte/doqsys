@@ -123,6 +123,8 @@
             @foreach($folders as $folder)
                 <x-modal-form modal-id="rename-folder-{{$folder->slug}}" :route="route('folders.update', $folder->slug)">
                     <x-slot:heading>Rename Folder</x-slot:heading>
+
+                    @method('put')
                     <div class="flex flex-col mb-5">
                         <x-label for="name" class="pb-1">Name</x-label>
                         <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400"
@@ -138,7 +140,9 @@
         @if($documents->count() > 0)
             @foreach($documents as $document)
                 <x-modal-form modal-id="rename-doc-{{$document->uuid}}" :route="route('documents.update', $document->uuid)">
-                    <x-slot:heading>Rename Folder</x-slot:heading>
+                    <x-slot:heading>Rename Document</x-slot:heading>
+
+                    @method('put')
                     <div class="flex flex-col mb-5">
                         <x-label for="name" class="pb-1">Name</x-label>
                         <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400"

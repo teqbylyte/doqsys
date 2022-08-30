@@ -30,6 +30,17 @@
                         Rename
                         </button>
                         @can(['modify document', 'modify folder'])
+                            <form method="POST" class="inline" action="{{ route('documents.set-visibility', [$doc->uuid]) }}">
+                                @method('put')
+                                @csrf
+                                <span class="text-blue-600 hover:text-blue-500 px-2 hover:underline text-xs font-semibold cursor-pointer"
+                                      onclick="event.preventDefault();
+                                                    this.closest('form').submit();"
+                                >
+                                    {{ $doc->is_visible ? 'Hide' : 'Show' }}
+                                </span>
+                            </form>
+
                             <form method="POST" class="inline" action="{{ route('documents.delete', [$doc->uuid]) }}">
                                 @method('delete')
                                 @csrf
@@ -37,8 +48,8 @@
                                       onclick="event.preventDefault();
                                                     this.closest('form').submit();"
                                 >
-                                Delete
-                            </span>
+                                    Delete
+                                </span>
                             </form>
                         @endcan
                     </td>
