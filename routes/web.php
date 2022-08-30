@@ -3,6 +3,7 @@
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/{doc}/download', 'download')->name('download');
     });
 
+    Route::controller(UsersController::class)->name('users.')
+        ->prefix('users')->middleware('can:manage users')
+        ->group(function ()
+        {
+            Route::get('/', 'index')->name('index');
+            Route::post('/revoke-permission', 'revokePermission')->name('revoke-permission');
+            Route::get('/give-permission', 'givePermission')->name('give-permission');
+            Route::post('/grant-permission', 'grantPermission')->name('grant-permission');
+        }
+        );
 
 });
 

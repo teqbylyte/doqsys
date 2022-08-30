@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models\Permission;
 
 class General
 {
@@ -43,6 +44,11 @@ class General
         }
 
         else return  $value;
+    }
+
+    public static function getAllPermissions(): array
+    {
+        return Permission::query()->pluck('name')->toArray();
     }
 
 }
