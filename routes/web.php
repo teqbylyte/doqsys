@@ -23,14 +23,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{slug}', 'show')->name('show');
         Route::post('/{slug}/update', 'update')->name('update');
-        Route::delete('/{slug}/delete', 'delete')->name('delete');
+        Route::delete('/{slug}/delete', 'delete')->name('delete')->can('modify folder');
     });
 
     Route::controller(DocumentController::class)->name('documents.')->prefix('documents')->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{doc}/edit', 'edit')->name('edit');
         Route::post('/{doc}/update', 'update')->name('update');
-        Route::delete('/{doc}/delete', 'delete')->name('delete');
+        Route::delete('/{doc}/delete', 'delete')->name('delete')->can('modify document');
         Route::get('/{doc}/download', 'download')->name('download');
     });
 

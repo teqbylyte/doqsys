@@ -29,16 +29,18 @@
                         >
                         Rename
                         </button>
-                        <form method="POST" class="inline" action="{{ route('documents.delete', [$doc->uuid]) }}">
-                            @method('delete')
-                            @csrf
-                            <span class="text-red-600 hover:text-red-500 px-2 hover:underline text-xs font-semibold cursor-pointer"
-                                             onclick="event.preventDefault();
+                        @can(['modify document', 'modify folder'])
+                            <form method="POST" class="inline" action="{{ route('documents.delete', [$doc->uuid]) }}">
+                                @method('delete')
+                                @csrf
+                                <span class="text-red-600 hover:text-red-500 px-2 hover:underline text-xs font-semibold cursor-pointer"
+                                      onclick="event.preventDefault();
                                                     this.closest('form').submit();"
-                            >
+                                >
                                 Delete
                             </span>
-                        </form>
+                            </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach
