@@ -35,9 +35,24 @@
             @php
                 $docs = $folder->documents
             @endphp
+
             <!-- Documents-->
             <div class="mt-10 shadow-sm sm:rounded-lg">
-                <h3 class="font-bold text-md text-cyan-600 pl-3 pb-3">Documents</h3>
+                <div class="text-sm text-cyan-600 pl-6 pb-3">
+                    <div class="flex items-center ">
+                        <h3 class="font-bold text-md text-cyan-600">Documents</h3>
+                        @can('modify document')
+                            <a href="{{ route('hidden') }}" data-tooltip-target="hidden-tooltip">
+                                <x-icon class="text-lg text-cyan-600 hover:text-cyan-400 mx-2">{{ showHidden() ? 'visibility' : 'visibility_off' }}</x-icon>
+                            </a>
+                            <div id="hidden-tooltip" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip">
+                                {{ showHidden() ? 'Don\'t show hidden' : 'Show Hidden' }}
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        @endcan
+                    </div>
+                    <p class="text-xs text-slate-400"><em>Hidden files are shown at the bottom of the list when enabled.</em></p>
+                </div>
                 <x-doc-list :docs="$docs" />
             </div>
         </div>

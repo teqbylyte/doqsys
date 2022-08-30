@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/hidden', [HomeController::class, 'hidden'])->name('hidden')->can('modify document');
 
     Route::controller(FolderController::class)->name('folders.')->prefix('folders')->group(function () {
         Route::post('/store', 'store')->name('store');

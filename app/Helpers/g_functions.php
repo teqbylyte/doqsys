@@ -17,3 +17,22 @@ function dateFormat(\Carbon\Carbon|null $date, bool $has_time = true): string
 
     return $has_time ? $date->format('d/m/Y m:s') : $date->format('d/m/Y');
 }
+
+
+/**
+ * Set the value to make hidden documents appear or not for the auth user session
+ */
+function setHidden(): void
+{
+    $value = showHidden();
+    session()->put('show_hidden', !$value);
+}
+
+/**
+ * Check if hidden documents can be show or not in the app for the auth user session
+ * @return bool
+ */
+function showHidden(): bool
+{
+    return session()->has('show_hidden') && session()->get('show_hidden');
+}

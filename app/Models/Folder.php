@@ -46,6 +46,6 @@ class Folder extends Model
 
     public function documents(): HasMany
     {
-        return $this->hasMany(Document::class)->latest();
+        return $this->hasMany(Document::class)->latest()->visible();
     }
 }
