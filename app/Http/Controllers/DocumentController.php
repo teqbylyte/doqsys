@@ -6,6 +6,9 @@ use App\Helpers\FileHelper;
 use App\Http\Requests\DocRequest;
 use App\Models\Document;
 use App\Models\Folder;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DocumentController extends Controller
 {
@@ -25,5 +28,21 @@ class DocumentController extends Controller
         catch (\Exception $exception) {
             return back()->with($this->getExceptionMsg($exception));
         }
+    }
+
+    /**
+     * Download resource
+     * @param Document $doc
+     * @return RedirectResponse|StreamedResponse
+     */
+    public function download(Document $doc): StreamedResponse|RedirectResponse
+    {
+        if (!is_null($doc->path)) {
+            if(Storage::disk('public')->exists($doc->path)){
+                return Storage::disk('public')->download($doc->path, $doc->full_name);
+            }
+        }
+
+        return back()->with('message', 'File not found');
     }
 }
