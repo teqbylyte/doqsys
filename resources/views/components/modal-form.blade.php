@@ -1,4 +1,4 @@
-@props(['modalId', 'action'])
+@props(['modalId', 'route'])
 
 <!-- Main modal -->
 <div id="{{ $modalId }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
@@ -15,7 +15,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form class="pb-6 px-10 pt-2 space-y-6 space-x-2" action="{{ $action }}" method="post">
+            <form class="pb-6 px-10 pt-2 space-y-6 space-x-2" action="{{ $route }}" method="post">
                 @csrf
 
                 {{ $slot }}

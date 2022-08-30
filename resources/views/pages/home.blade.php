@@ -5,20 +5,27 @@
         </h2>
     </x-slot>
 
-    <x-modal-form modal-id="file-modal" action="#">
+    <!-- Page Modals--->
+    <x-modal-form modal-id="file-modal" route="#">
         <x-slot:heading>Upload File</x-slot:heading>
         <div>Hi</div>
     </x-modal-form>
 
-    <x-modal-form modal-id="folder-modal" :action="route('folders.store')">
+    <x-modal-form modal-id="folder-modal" :route="route('folders.store')">
         <x-slot:heading>Add New Folder</x-slot:heading>
-        <div class="flex flex-col mb-3">
+        <div class="flex flex-col mb-5">
             <x-label for="name" class="pb-1">Name</x-label>
-            <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400" name="name"/>
+            <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400"
+                     name="name" value="{{ old('name') }}" autofocus required
+            />
+            <x-input-error :inputName="$error = 'name'" />
         </div>
-
     </x-modal-form>
+    <!-- Page Modals End--->
 
+    <!-- Page Body--->
+
+    <!-- Modal Buttons--->
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end  mb-5">
@@ -33,6 +40,15 @@
             </div>
         </div>
     </div>
+    <!-- Modal Buttons end--->
 
+    <!-- Page Body End--->
+
+
+    @section('page-scripts')
+        <script>
+
+        </script>
+    @endsection
 
 </x-app-layout>
