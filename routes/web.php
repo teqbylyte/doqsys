@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,15 @@ Route::middleware('auth')->group(function () {
         Route::post('/{slug}/update', 'update')->name('update');
         Route::delete('/{slug}/delete', 'delete')->name('delete');
     });
+
+    Route::controller(DocumentController::class)->name('documents.')->prefix('documents')->group(function () {
+        Route::post('/store', 'store')->name('store');
+        Route::get('/{doc}/edit', 'edit')->name('edit');
+        Route::post('/{doc}/update', 'update')->name('update');
+        Route::delete('/{doc}/delete', 'delete')->name('delete')->middleware('can:delete doc,delete folder');
+        Route::get('/{doc}/download', 'download')->name('download');
+    });
+
 
 });
 

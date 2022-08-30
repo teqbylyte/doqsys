@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('page-css')
+        <x-dropify-css />
+    @endsection
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Folder | '. $folder->name) }}
@@ -6,7 +9,6 @@
     </x-slot>
 
     <!-- Page Body--->
-
     <x-breadcrumbs :breadcrumbs="$breadcrumbs"/>
 
     <!-- Modal Buttons--->
@@ -34,9 +36,16 @@
     </div>
 
     <!-- Page Modals--->
-    <x-modal-form modal-id="file-modal" route="#">
+    <x-modal-form modal-id="file-modal" route="{{ route('documents.store') }}" enctype="multipart/form-data">
         <x-slot:heading>Upload File</x-slot:heading>
-        <div>Hi</div>
+        <div class="flex flex-col mb-5">
+            <x-label for="file" class="pb-1">Name</x-label>
+            <input type="file" id="file" name="file" class="dropify"
+                   data-max-file-size="5M" required
+            />
+            <x-input-error :inputName="$error = 'file'" />
+            <input type="hidden" name="folder" value="{{ $folder->slug }}">
+        </div>
     </x-modal-form>
 
     <x-modal-form modal-id="folder-modal" :route="route('folders.store')">
@@ -46,8 +55,8 @@
             <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400"
                      name="name" value="{{ old('name') }}" autofocus required
             />
-            <input type="hidden" name="super_folder" value="{{ $folder->slug }}">
             <x-input-error :inputName="$error = 'name'" />
+            <input type="hidden" name="super_folder" value="{{ $folder->slug }}">
         </div>
     </x-modal-form>
 
@@ -71,9 +80,7 @@
     <!-- Page Body End--->
 
     @section('page-scripts')
-        <script>
-
-        </script>
+        <x-dropify-script />
     @endsection
 
 </x-app-layout>

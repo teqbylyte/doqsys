@@ -1,4 +1,8 @@
 <x-app-layout>
+    @section('page-css')
+        <x-dropify-css />
+    @endsection
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Home') }}
@@ -6,6 +10,7 @@
     </x-slot>
 
     <!-- Page Body--->
+
 
     <!-- Modal Buttons--->
     <div class="py-12">
@@ -43,9 +48,15 @@
     </div>
 
     <!-- Page Modals--->
-    <x-modal-form modal-id="file-modal" route="#">
+    <x-modal-form modal-id="file-modal" route="{{ route('documents.store') }}" enctype="multipart/form-data">
         <x-slot:heading>Upload File</x-slot:heading>
-        <div>Hi</div>
+        <div class="flex flex-col mb-5">
+            <x-label for="file" class="pb-1">Name</x-label>
+            <input type="file" id="file" name="file" class="dropify"
+                   data-max-file-size="5M" required
+            />
+            <x-input-error :inputName="$error = 'file'" />
+        </div>
     </x-modal-form>
 
     <x-modal-form modal-id="folder-modal" :route="route('folders.store')">
@@ -78,6 +89,7 @@
     <!-- Page Body End--->
 
     @section('page-scripts')
+        <x-dropify-script />
         <script>
 
         </script>
