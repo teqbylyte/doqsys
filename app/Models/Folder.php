@@ -15,6 +15,15 @@ class Folder extends Model
     protected $guarded = ['id'];
 
 
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($folder) {
+            $folder->documents()->delete();
+            $folder->subFolders()->delete();
+        });
+    }
+
     //    Query scopes
 
     public function scopeSlug($query, string|null $value)

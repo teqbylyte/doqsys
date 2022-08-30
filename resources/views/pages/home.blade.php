@@ -47,7 +47,7 @@
         <!-- Folders-->
             @if($documents->count() > 0)
                 <div class="mt-10 shadow-sm sm:rounded-lg">
-                    <h3 class="font-bold text-md text-cyan-600 pl-3 pb-3">Folders</h3>
+                    <h3 class="font-bold text-md text-cyan-600 pl-3 pb-3">Documents</h3>
                     <x-doc-list :docs="$documents" />
                 </div>
             @endif
