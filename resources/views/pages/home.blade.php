@@ -5,40 +5,6 @@
         </h2>
     </x-slot>
 
-    <!-- Page Modals--->
-    <x-modal-form modal-id="file-modal" route="#">
-        <x-slot:heading>Upload File</x-slot:heading>
-        <div>Hi</div>
-    </x-modal-form>
-
-    <x-modal-form modal-id="folder-modal" :route="route('folders.store')">
-        <x-slot:heading>Add New Folder</x-slot:heading>
-        <div class="flex flex-col mb-5">
-            <x-label for="name" class="pb-1">Name</x-label>
-            <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400"
-                     name="name" value="{{ old('name') }}" autofocus required
-            />
-            <x-input-error :inputName="$error = 'name'" />
-        </div>
-    </x-modal-form>
-
-    @if($folders->count())
-        @foreach($folders as $folder)
-            <x-modal-form modal-id="rename-folder-{{$folder->slug}}" :route="route('folders.update', $folder->slug)">
-                <x-slot:heading>Rename Folder</x-slot:heading>
-                <div class="flex flex-col mb-5">
-                    <x-label for="name" class="pb-1">Name</x-label>
-                    <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400"
-                             name="name" value="{{ old('name') ?? $folder->name }}" autofocus required
-                    />
-                    <x-input-error :inputName="$error = 'name'" />
-                    <input type="hidden" name="super_folder" value="{{ $folder->super_folder?->slug }}">
-                </div>
-            </x-modal-form>
-        @endforeach
-    @endif
-    <!-- Page Modals End--->
-
     <!-- Page Body--->
 
     <!-- Modal Buttons--->
@@ -67,7 +33,7 @@
 
             <!-- Folders-->
             @if($folders->count() > 0)
-                <div class="mt-10 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="mt-10 shadow-sm sm:rounded-lg">
                     <h3 class="font-bold text-md text-cyan-600 pl-3 pb-3">Folders</h3>
                     <x-folder-list :folders="$folders" />
                 </div>
@@ -76,6 +42,39 @@
         </div>
     </div>
 
+    <!-- Page Modals--->
+    <x-modal-form modal-id="file-modal" route="#">
+        <x-slot:heading>Upload File</x-slot:heading>
+        <div>Hi</div>
+    </x-modal-form>
+
+    <x-modal-form modal-id="folder-modal" :route="route('folders.store')">
+        <x-slot:heading>Add New Folder</x-slot:heading>
+        <div class="flex flex-col mb-5">
+            <x-label for="name" class="pb-1">Name</x-label>
+            <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400"
+                     name="name" value="{{ old('name') }}" autofocus required
+            />
+            <x-input-error :inputName="$error = 'name'" />
+        </div>
+    </x-modal-form>
+
+    @if($folders->count() > 0)
+        @foreach($folders as $folder)
+            <x-modal-form modal-id="rename-folder-{{$folder->slug}}" :route="route('folders.update', $folder->slug)">
+                <x-slot:heading>Rename Folder</x-slot:heading>
+                <div class="flex flex-col mb-5">
+                    <x-label for="name" class="pb-1">Name</x-label>
+                    <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400"
+                             name="name" value="{{ old('name') ?? $folder->name }}" autofocus required
+                    />
+                    <x-input-error :inputName="$error = 'name'" />
+                    <input type="hidden" name="super_folder" value="{{ $folder->superFolder?->slug }}">
+                </div>
+            </x-modal-form>
+        @endforeach
+    @endif
+<!-- Page Modals End--->
     <!-- Page Body End--->
 
     @section('page-scripts')

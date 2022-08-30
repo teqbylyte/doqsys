@@ -5,10 +5,22 @@ namespace App\Http\Controllers;
 use App\Helpers\General;
 use App\Http\Requests\FolderRequest;
 use App\Models\Folder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class FolderController extends Controller
 {
+    private array $breadcrumbs = [];
+
+    public function show($slug)
+    {
+        $folder = Folder::slug($slug)->with(['subFolders', 'documents'])->firstOrFail();
+
+        $this->setNestedFolders($folder);
+        $breadcrumbs = $this->getBreadcrumbs(array_reverse($this->breadcrumbs));
+
+        return view('pages.folder', compact('folder', 'breadcrumbs'));
+    }
 
     public function store(FolderRequest $request)
     {
@@ -32,7 +44,7 @@ class FolderController extends Controller
         try {
             $folder = Folder::slug($slug)->firstOrFail();
 
-            $name = General::generateName(model: new Folder(), column: 'name', value: $request->name, super_folder: $folder->super_folder?->id);
+            $name = General::generateName(model: new Folder(), column: 'name', value: $request->name, super_folder: $folder->superFolder?->id);
 
             $folder->name = $name;
             $folder->save();
@@ -55,4 +67,19 @@ class FolderController extends Controller
         return back()->with('success', 'Deleted!');
     }
 
+    /**
+     * Creating nesting of folders by checking if super-folders exist as the tree goes up.
+     * @param Folder|Model $folder
+     */
+    private function setNestedFolders(Folder|Model $folder): void
+    {
+        $this->breadcrumbs[] = ['link' => route('folders.show', [$folder->slug]), 'name' => $folder->name, 'icon' => 'folder'];
+
+        if ($folder->superFolder()->exists()) {
+            self::setNestedFolders($folder->superFolder);
+        }
+
+//        removes the breadcrumb link from the current folder.
+        $this->breadcrumbs[0]['link'] = null;
+    }
 }
