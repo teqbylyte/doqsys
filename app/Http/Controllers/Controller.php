@@ -17,7 +17,7 @@ class Controller extends BaseController
     protected function getExceptionMsg(\Exception $exception): array
     {
         $msg = $exception->getMessage();
-        dd($msg);
+
         if (env('APP_ENV') == 'production') {
             $msg = 'An error occurred';
             Log::error($exception->getMessage() . "\n");

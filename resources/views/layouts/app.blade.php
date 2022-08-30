@@ -31,9 +31,13 @@
                 </div>
             </header>
 
+                <!-- Session Message -->
                 <x-auth-session-status />
 
-            <!-- Page Content -->
+                <!-- Validation Errors -->
+                <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+                <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>

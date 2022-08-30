@@ -24,7 +24,7 @@ class FolderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'          => 'required|string',
+            'name'          => 'required|digits:11',
             'super_folder'    => 'nullable|exists:folders,slug',
         ];
     }

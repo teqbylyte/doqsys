@@ -11,11 +11,10 @@
         </thead>
         <tbody>
         @if($docs->count() > 0)
-            @foreach($docs as $doc)
+            @foreach(collect($docs)->sortByDesc('is_visible') as $doc)
                 <tr class="bg-white border-b hover:bg-gray-50 @if(!$doc->is_visible) bg-opacity-60 opacity-60 @endif">
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
                         <x-doc-name :doc="$doc" />
-
                     </th>
                     <td class="py-4 px-6"> {{ dateFormat($doc->created_at)}} </td>
 

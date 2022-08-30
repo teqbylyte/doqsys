@@ -41,8 +41,6 @@ class Document extends Model
     {
         $can_modify = auth()->user()->can('modify document');
 
-        $query = $query->orderBy('is_visible', 'DESC');
-
         return $can_modify && showHidden() ?
             $query->whereNotNull('is_visible') : $query->where('is_visible', true);
     }

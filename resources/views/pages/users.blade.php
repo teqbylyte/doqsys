@@ -82,10 +82,9 @@
                                     <x-label for="file" class="pb-1">Email</x-label>
                                     <x-input id="email" name="email" autofocus required
                                              class="block mt-0 px-2 w-full h-10 border border-cyan-400"
-                                             value="{{ old('name') }}"
+                                             value=""
                                              placeholder="Enter the user email"
                                     />
-                                    <x-input-error :inputName="$error = 'email'" />
                                     <input type="hidden" name="permission" value="{{ $key }}">
                                 </div>
                             </x-modal-form>

@@ -69,7 +69,6 @@
                     <input type="file" id="file" name="file" class="dropify"
                            data-max-file-size="5M" required
                     />
-                    <x-input-error :inputName="$error = 'file'" />
                     <input type="hidden" name="folder" value="{{ $folder->slug }}">
                 </div>
             </x-modal-form>
@@ -79,9 +78,9 @@
                 <div class="flex flex-col mb-5">
                     <x-label for="name" class="pb-1">Name</x-label>
                     <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400"
-                             name="name" value="{{ old('name') }}" autofocus required
+                             name="name" value="" autofocus required
                     />
-                    <x-input-error :inputName="$error = 'name'" />
+
                     <input type="hidden" name="super_folder" value="{{ $folder->slug }}">
                 </div>
             </x-modal-form>
@@ -95,9 +94,9 @@
                         <div class="flex flex-col mb-5">
                             <x-label for="name" class="pb-1">Name</x-label>
                             <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400"
-                                     name="name" value="{{ old('name') ?? $folder->name }}" autofocus required
+                                     name="name" value="{{  $folder->name }}" autofocus required
                             />
-                            <x-input-error :inputName="$error = 'name'" />
+
                             <input type="hidden" name="super_folder" value="{{ $folder->superFolder?->slug }}">
                         </div>
                     </x-modal-form>
@@ -113,9 +112,9 @@
                         <div class="flex flex-col mb-5">
                             <x-label for="name" class="pb-1">Name</x-label>
                             <x-input id="name" class="block mt-0 px-2 w-full h-10 border border-cyan-400"
-                                     name="name" value="{{ old('name') ?? $document->name }}" autofocus required
+                                     name="name" value="{{  $document->name }}" autofocus required
                             />
-                            <x-input-error :inputName="$error = 'name'" />
+
                             <input type="hidden" name="super_folder" value="{{ $document->folder?->slug }}">
                         </div>
                     </x-modal-form>
