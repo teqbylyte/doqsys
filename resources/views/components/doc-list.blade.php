@@ -14,10 +14,7 @@
             @foreach($docs as $doc)
                 <tr class="bg-white border-b hover:bg-gray-50 @if(!$doc->is_visible) bg-opacity-60 opacity-60 @endif">
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
-                    <span class="flex items-center">
-                        <x-icon class="text-cyan-600"> {{ getFileIcon($doc->type) }}</x-icon>
-                        <span class="ml-3">{{ $doc->file_name }}</span>
-                    </span>
+                        <x-doc-name :doc="$doc" />
 
                     </th>
                     <td class="py-4 px-6"> {{ dateFormat($doc->created_at)}} </td>

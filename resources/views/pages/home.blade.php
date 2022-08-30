@@ -1,6 +1,7 @@
 <x-app-layout>
     @section('page-css')
         <x-dropify-css />
+        <x-img-viewer-css />
     @endsection
 
     <x-slot name="header">
@@ -47,12 +48,7 @@
                     <div class="pb-6 pt-1 max-h-80 md:max-h-96 overflow-y-scroll px-3 md:px-0 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
                         @foreach($latest as $doc)
                             <div class="bg-white p-4 shadow-sm rounded-sm flex justify-between">
-                                <div class="flex items-center @if($doc->type == 'image') cursor-pointer hover:opacity-80 @endif">
-                                    <x-icon class="text-cyan-600">{{ getFileIcon($doc->type) }}</x-icon>
-                                    <div class="truncate pl-2">
-                                        {{ $doc->file_name }}
-                                    </div>
-                                </div>
+                                <x-doc-name :doc="$doc" />
 
                                 <div>
                                     <a href="{{ route('documents.download', $doc->uuid) }}" class="px-1 ">
@@ -174,6 +170,7 @@
 
     @section('page-scripts')
         <x-dropify-script />
+        <x-img-viewer-script />
         <script>
 
         </script>

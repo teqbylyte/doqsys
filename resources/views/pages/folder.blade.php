@@ -1,6 +1,7 @@
 <x-app-layout>
     @section('page-css')
         <x-dropify-css />
+        <x-img-viewer-css />
     @endsection
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -53,6 +54,7 @@
                     </div>
                     <p class="text-xs text-slate-400"><em>Hidden files are shown at the bottom of the list when enabled.</em></p>
                 </div>
+
                 <x-doc-list :docs="$docs" />
             </div>
         </div>
@@ -127,6 +129,7 @@
 
     @section('page-scripts')
         <x-dropify-script />
+        <x-img-viewer-script />
     @endsection
 
 </x-app-layout>
