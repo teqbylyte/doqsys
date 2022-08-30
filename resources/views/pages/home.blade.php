@@ -38,12 +38,29 @@
                     New Folder
                 </x-button>
             </div>
+            <!-- Modal Buttons end--->
+
+            <!-- Greeting--->
+            <div class="overflow-hidden">
+                <p><strong>Hey there!</strong></p>
+                @if($documents->count() < 1 && $folders->count() < 1)
+                    <p class="pt-2 sm:pt-5">Welcome to the home your documents manager, proceed to upload documents, create folders to group your documents and easily access/manage them for your organization.</p>
+                @endif
+            </div>
+            <!-- Greeting End--->
+
+            <!-- Folders-->
+            @if($folders->count() > 0)
+                <div class="mt-10 overflow-hidden shadow-sm sm:rounded-lg">
+                    <h3 class="font-bold text-md text-cyan-600 pl-3 pb-3">Folders</h3>
+                    <x-folder-list :folders="$folders" />
+                </div>
+            @endif
+
         </div>
     </div>
-    <!-- Modal Buttons end--->
 
     <!-- Page Body End--->
-
 
     @section('page-scripts')
         <script>
