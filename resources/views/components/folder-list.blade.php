@@ -2,16 +2,16 @@
 
 <div class="p-6 bg-white border-b max-h-96 overscroll-y-auto border-gray-200">
     @if(!is_null($folders))
-        <div class="grid lggrid-cols-8 md:grid-cols-6 sm:grid-cols-4 grid-cols-2 lg:gap-10 gap-5">
+        <div class="grid lg:grid-cols-8 md:grid-cols-6 sm:grid-cols-4 grid-cols-3 lg:gap-10 gap-5">
 
                 @foreach($folders as $folder)
                     <div class="relative flex flex-col justify-start">
                         <a href="{{route('folders.show', $folder->slug)}}" class="p-0 m-0">
                             <span class="material-icons text-8xl text-cyan-200 hover:text-cyan-100 mr-2">folder</span>
                         </a>
-                        <div class="flex justify-between w-full">
+                        <div class="flex justify-between w-24">
                             <a href="{{route('folders.show', $folder->slug)}}" class="truncate hover:text-gray-500">{{ $folder->name }}</a>
-                            <div class="mr-4">
+                            <div class="">
                                 <x-dropdown align="right" width="36">
                                     <x-slot:trigger>
                                         <span class="material-icons text-xs text-dark hover:text-dark cursor-pointer">more_vert</span>

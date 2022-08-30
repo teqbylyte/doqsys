@@ -12,7 +12,7 @@
     <!-- Page Body--->
 
 
-    <div class="py-12">
+    <div class="py-12 mx-3 sm:mx-0">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <!-- Modal Buttons--->
@@ -37,14 +37,14 @@
             </div>
             <!-- Greeting End--->
 
-            <!-- Latest-->
+            <!-- Recently Uploaded-->
             @if($latest->count() > 0)
-                <div class="mt-10 shadow-sm sm:rounded-lg">
+                <div class="mt-10">
                     <h3 class="font-bold text-md text-cyan-600 pl-3 pb-3">
                         Recently Added
                         <span class="text-sm text-slate-500">(Click on images to view)</span>
                     </h3>
-                    <div class="pb-6 pt-1 max-h-80 overflow-y-scroll grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+                    <div class="pb-6 pt-1 max-h-80 md:max-h-96 overflow-y-scroll px-3 md:px-0 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
                         @foreach($latest as $doc)
                             <div class="bg-white p-4 shadow-sm rounded-sm flex justify-between">
                                 <div class="flex items-center @if($doc->type == 'image') cursor-pointer hover:opacity-80 @endif">
@@ -53,33 +53,24 @@
                                         {{ $doc->file_name }}
                                     </div>
                                 </div>
-                                <x-dropdown align="right" width="36">
-                                    <x-slot:trigger>
-                                        <span class="material-icons text-xs text-dark hover:text-dark cursor-pointer">more_vert</span>
-                                    </x-slot:trigger>
 
-                                    <x-slot:content>
-
-                                        <!-- Modal dropdown button -->
-                                        <x-dropdown-link class="hover:text-green-400 text-green-600"
-                                                         href="{{ route('documents.download', $doc->uuid) }}"
-                                        >
-                                            Download
-                                        </x-dropdown-link>
-                                        @can('modify document')
-                                            <form method="POST" action="{{ route('documents.delete', $doc->uuid) }}">
-                                                @method('delete')
-                                                @csrf
-                                                <x-dropdown-link class="hover:text-red-400 text-red-600"
-                                                                 onclick="event.preventDefault();
+                                <div>
+                                    <a href="{{ route('documents.download', $doc->uuid) }}" class="px-1 ">
+                                        <x-icon class="text-sm text-green-600 hover:text-green-400">download</x-icon>
+                                    </a>
+                                    @can('modify document')
+                                        <form method="POST" class="inline px-1" action="{{ route('documents.delete', $doc->uuid) }}">
+                                            @method('delete')
+                                            @csrf
+                                            <span class="hover:text-red-400 text-red-600"
+                                                             onclick="event.preventDefault();
                                                     this.closest('form').submit();"
-                                                >
-                                                    Delete
-                                                </x-dropdown-link>
-                                            </form>
-                                        @endcan
-                                    </x-slot:content>
-                                </x-dropdown>
+                                            >
+                                                <x-icon class="text-sm text-red-600 hover:text-red-400 cursor-pointer">delete_forever</x-icon>
+                                            </span>
+                                        </form>
+                                    @endcan
+                                </div>
                             </div>
                         @endforeach
                     </div>
