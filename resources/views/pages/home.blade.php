@@ -97,7 +97,10 @@
                                 </div>
                             @endcan
                         </div>
-                        <p class="text-xs text-slate-400"><em>Hidden files are shown at the bottom of the list when enabled.</em></p>
+
+                        @can('modify document')
+                            <p class="text-xs text-slate-400"><em>Hidden files are shown at the bottom of the list when enabled.</em></p>
+                        @endcan
                     </div>
                     <x-doc-list :docs="$documents" />
                 </div>

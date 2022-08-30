@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'App Admin',
             'email' => 'admin@doqsys.com',
         ]);

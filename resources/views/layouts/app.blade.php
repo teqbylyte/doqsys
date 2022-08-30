@@ -31,6 +31,8 @@
                 </div>
             </header>
 
+                <x-auth-session-status />
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}
