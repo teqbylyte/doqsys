@@ -18,6 +18,7 @@ class Folder extends Model
     public static function boot() {
         parent::boot();
 
+//          When deleting a folder, delete all it's contents both in storage and db
         static::deleting(function($folder) {
             $folder->documents()->delete();
             if ($folder->subFolders()->exists()) {

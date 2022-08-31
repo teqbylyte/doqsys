@@ -53,9 +53,9 @@ class FileHelper
     }
 
     /**
-     * Delete an uploaded file from the storage if it is found.
+     * Delete contents of a folder from the storage.
      *
-     * @param string|null $folder should be the path to that file in the public disk
+     * @param string|null $folder should be the slug used to name the directory.
      */
     public static function deleteFolder(string|null $folder = null): void
     {

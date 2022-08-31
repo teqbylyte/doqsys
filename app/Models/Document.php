@@ -41,6 +41,7 @@ class Document extends Model
     {
         $can_modify = auth()->user()->can('modify document');
 
+//        If user can modify document and enable hidden documents to show, return all entries, visible or not
         return $can_modify && showHidden() ?
             $query->whereNotNull('is_visible') : $query->where('is_visible', true);
     }
