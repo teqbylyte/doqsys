@@ -36,3 +36,19 @@ function showHidden(): bool
 {
     return session()->has('show_hidden') && session()->get('show_hidden');
 }
+
+/**
+ * Excerpt
+ * @param $html
+ * @param $limit
+ * @param $prefix
+ */
+if (! function_exists('excerpt')) {
+    function excerpt($html, $limit, $prefix = ' ...') {
+        if (strlen($html) > $limit) {
+            return substr($html, 0, $limit) . $prefix;
+        }
+
+        return $html;
+    }
+}

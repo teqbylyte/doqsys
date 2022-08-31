@@ -1,4 +1,4 @@
-@props(['doc'])
+@props(['doc', 'name' => null ])
 
 @php
     $icon = getFileIcon($doc->type)
@@ -19,6 +19,6 @@
     <x-icon class="text-cyan-600">{{ $icon }}</x-icon>
 
     <div class="truncate pl-2">
-        {{ $doc->file_name }}
+        {{ $name ?? $doc->file_name }}
     </div>
 </a>

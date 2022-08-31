@@ -48,7 +48,7 @@
                     <div class="pb-6 pt-1 max-h-80 md:max-h-96 overflow-y-scroll px-3 md:px-0 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
                         @foreach($latest as $doc)
                             <div class="bg-white p-4 shadow-sm rounded-sm flex justify-between">
-                                <x-doc-name :doc="$doc" />
+                                <x-doc-name :doc="$doc" :name="excerpt($doc->file_name, 15)" />
 
                                 <div>
                                     <a href="{{ route('documents.download', $doc->uuid) }}" class="px-1 ">
@@ -172,9 +172,6 @@
     @section('page-scripts')
         <x-dropify-script />
         <x-img-viewer-script />
-        <script>
-
-        </script>
     @endsection
 
 </x-app-layout>
